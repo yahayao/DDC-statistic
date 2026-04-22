@@ -1,0 +1,49 @@
+name: Update DDC Statistics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 */3 * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-statistics:
+    runs-on: ubuntu-latest
+    env:
+      DATASET_DIR: data
+      STATS_FILE: statistics.json
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v4
+
+      - name: Generate statistics data
+        run: |
+          uv run --python 3.12 generate_statistics.py --input-dir "$DATASET_DIR" --output "$STATS_FILE"
+
+      - name: Update README report
+        run: |
+          uv run --python 3.12 update_readme.py --stats-file "$STATS_FILE" --readme README.md
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet README.md; then
+            echo "README.md is already up to date."
+            exit 0
+          fi
+
+          git add README.md
+          git commit -m "chore: update DDC statistics report"
+          git push
