@@ -111,8 +111,8 @@ def build_statistics_block(stats: dict[str, Any]) -> str:
         "**DDC number that not satisfy the requirement of 100 samples:**\n"
         f"{table}\n\n"
         "### DDC data quality\n\n"
-        f"**Minimal length of description: {min_description_length}**\n"
-        f"**Maximal length of description: {max_description_length}**\n"
+        f"**Minimal length of description: {min_description_length}**\n\n"
+        f"**Maximal length of description: {max_description_length}**\n\n"
         f"**Average length of description: {average_description_length}**\n"
     )
 
