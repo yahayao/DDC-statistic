@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATASET_DIR: data
-      STATS_FILE: statistics.json
+      STATS_FILE: data/statistics.json
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -25,14 +25,22 @@ jobs:
 
       - name: Setup uv
         uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
+
+      - name: Sync dependencies from lock
+        run: |
+          uv sync --frozen --python 3.12
 
       - name: Generate statistics data
         run: |
-          uv run --python 3.12 generate_statistics.py --input-dir "$DATASET_DIR" --output "$STATS_FILE"
+          pushd "$DATASET_DIR"
+          uv run --frozen --python 3.12 ../generate_statistics.py
+          popd
 
       - name: Update README report
         run: |
-          uv run --python 3.12 update_readme.py --stats-file "$STATS_FILE" --readme README.md
+          uv run --frozen --python 3.12 update_readme.py --stats-file "$STATS_FILE" --readme README.md
 
       - name: Commit and push changes
         run: |

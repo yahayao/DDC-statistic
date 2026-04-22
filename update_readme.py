@@ -19,12 +19,44 @@ def _format_average(value: Any) -> str:
     return str(value)
 
 
+def _safe_int(value: Any, default: int = 0) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def _normalize_underfilled_items(items: Any) -> list[dict[str, Any]]:
+    if not isinstance(items, list):
+        return []
+
+    normalized: list[dict[str, Any]] = []
+    for item in items:
+        if not isinstance(item, dict):
+            continue
+
+        ddc_raw = item.get("ddc")
+        if ddc_raw is None:
+            continue
+
+        ddc = str(ddc_raw).strip()
+        if not ddc:
+            continue
+        if ddc.isdigit():
+            ddc = ddc.zfill(3)
+
+        sample_number = item.get("current_count", item.get("sample_number", item.get("count", 0)))
+        normalized.append({"ddc": ddc, "sample_number": _safe_int(sample_number, 0)})
+
+    return normalized
+
+
 def _build_underfilled_table(underfilled: list[dict[str, Any]]) -> str:
     lines = ["| DDC | Sample Number |", "| --- | --- |"]
     if underfilled:
         for item in underfilled:
-            ddc = str(item.get("ddc", "")).zfill(3)
-            sample_number = item.get("sample_number", 0)
+            ddc = str(item.get("ddc", ""))
+            sample_number = _safe_int(item.get("sample_number", 0), 0)
             lines.append(f"| {ddc} | {sample_number} |")
     else:
         lines.append("| None | 0 |")
@@ -32,11 +64,42 @@ def _build_underfilled_table(underfilled: list[dict[str, Any]]) -> str:
 
 
 def build_statistics_block(stats: dict[str, Any]) -> str:
-    valid_sample_total = stats.get("valid_sample_total", 0)
-    min_description_length = stats.get("min_description_length", 20)
-    max_description_length = stats.get("max_description_length", 1000)
-    average_description_length = _format_average(stats.get("average_description_length", 0))
-    underfilled_ddc = stats.get("underfilled_ddc", [])
+    abstract_stats = stats.get("abstract_stats", {})
+    ddc_under_100 = stats.get("ddc_under_100", {})
+
+    valid_sample_total = _safe_int(
+        stats.get(
+            "valid_sample_total",
+            abstract_stats.get("total_records", 0) if isinstance(abstract_stats, dict) else 0,
+        ),
+        0,
+    )
+    min_description_length = _safe_int(
+        stats.get(
+            "min_description_length",
+            abstract_stats.get("min", 20) if isinstance(abstract_stats, dict) else 20,
+        ),
+        20,
+    )
+    max_description_length = _safe_int(
+        stats.get(
+            "max_description_length",
+            abstract_stats.get("max", 1000) if isinstance(abstract_stats, dict) else 1000,
+        ),
+        1000,
+    )
+    average_description_length = _format_average(
+        stats.get(
+            "average_description_length",
+            abstract_stats.get("mean", 0) if isinstance(abstract_stats, dict) else 0,
+        )
+    )
+
+    underfilled_raw = stats.get("underfilled_ddc")
+    if underfilled_raw is None and isinstance(ddc_under_100, dict):
+        underfilled_raw = ddc_under_100.get("details", [])
+
+    underfilled_ddc = _normalize_underfilled_items(underfilled_raw)
 
     table = _build_underfilled_table(underfilled_ddc)
 
