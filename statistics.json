@@ -1,15 +1,25 @@
 {
   "abstract_stats": {
     "max": 8019,
-    "min": 9,
-    "mean": 650.06,
-    "total_records": 232337
+    "min": 67,
+    "mean": 652.98,
+    "total_records": 232611
+  },
+  "ddc_missing_001_to_999": {
+    "count": 5,
+    "codes": [
+      "008",
+      "009",
+      "048",
+      "406",
+      "481"
+    ]
   },
   "ddc_under_100": {
-    "total_ddc_classes": 941,
-    "ddc_over_100_count": 241,
-    "ddc_over_100_total_records": 217354,
-    "ddc_under_100_count": 700,
+    "total_ddc_classes": 994,
+    "ddc_over_100_count": 236,
+    "ddc_over_100_total_records": 215810,
+    "ddc_under_100_count": 758,
     "details": [
       {
         "ddc": 2,
@@ -22,6 +32,11 @@
         "gap_to_100": 56
       },
       {
+        "ddc": 7,
+        "current_count": 11,
+        "gap_to_100": 89
+      },
+      {
         "ddc": 10,
         "current_count": 2,
         "gap_to_100": 98
@@ -32,6 +47,21 @@
         "gap_to_100": 87
       },
       {
+        "ddc": 12,
+        "current_count": 25,
+        "gap_to_100": 75
+      },
+      {
+        "ddc": 13,
+        "current_count": 17,
+        "gap_to_100": 83
+      },
+      {
+        "ddc": 14,
+        "current_count": 12,
+        "gap_to_100": 88
+      },
+      {
         "ddc": 15,
         "current_count": 4,
         "gap_to_100": 96
@@ -40,6 +70,21 @@
         "ddc": 16,
         "current_count": 58,
         "gap_to_100": 42
+      },
+      {
+        "ddc": 17,
+        "current_count": 27,
+        "gap_to_100": 73
+      },
+      {
+        "ddc": 18,
+        "current_count": 30,
+        "gap_to_100": 70
+      },
+      {
+        "ddc": 19,
+        "current_count": 8,
+        "gap_to_100": 92
       },
       {
         "ddc": 20,
@@ -62,6 +107,11 @@
         "gap_to_100": 96
       },
       {
+        "ddc": 24,
+        "current_count": 7,
+        "gap_to_100": 93
+      },
+      {
         "ddc": 26,
         "current_count": 9,
         "gap_to_100": 91
@@ -75,6 +125,11 @@
         "ddc": 28,
         "current_count": 57,
         "gap_to_100": 43
+      },
+      {
+        "ddc": 29,
+        "current_count": 34,
+        "gap_to_100": 66
       },
       {
         "ddc": 30,
@@ -97,6 +152,81 @@
         "gap_to_100": 99
       },
       {
+        "ddc": 34,
+        "current_count": 17,
+        "gap_to_100": 83
+      },
+      {
+        "ddc": 35,
+        "current_count": 18,
+        "gap_to_100": 82
+      },
+      {
+        "ddc": 36,
+        "current_count": 38,
+        "gap_to_100": 62
+      },
+      {
+        "ddc": 37,
+        "current_count": 2,
+        "gap_to_100": 98
+      },
+      {
+        "ddc": 38,
+        "current_count": 3,
+        "gap_to_100": 97
+      },
+      {
+        "ddc": 39,
+        "current_count": 14,
+        "gap_to_100": 86
+      },
+      {
+        "ddc": 40,
+        "current_count": 8,
+        "gap_to_100": 92
+      },
+      {
+        "ddc": 41,
+        "current_count": 4,
+        "gap_to_100": 96
+      },
+      {
+        "ddc": 42,
+        "current_count": 15,
+        "gap_to_100": 85
+      },
+      {
+        "ddc": 43,
+        "current_count": 4,
+        "gap_to_100": 96
+      },
+      {
+        "ddc": 44,
+        "current_count": 2,
+        "gap_to_100": 98
+      },
+      {
+        "ddc": 45,
+        "current_count": 3,
+        "gap_to_100": 97
+      },
+      {
+        "ddc": 46,
+        "current_count": 1,
+        "gap_to_100": 99
+      },
+      {
+        "ddc": 47,
+        "current_count": 1,
+        "gap_to_100": 99
+      },
+      {
+        "ddc": 49,
+        "current_count": 13,
+        "gap_to_100": 87
+      },
+      {
         "ddc": 50,
         "current_count": 5,
         "gap_to_100": 95
@@ -113,13 +243,13 @@
       },
       {
         "ddc": 53,
-        "current_count": 11,
-        "gap_to_100": 89
+        "current_count": 10,
+        "gap_to_100": 90
       },
       {
         "ddc": 54,
-        "current_count": 13,
-        "gap_to_100": 87
+        "current_count": 12,
+        "gap_to_100": 88
       },
       {
         "ddc": 55,
@@ -153,8 +283,8 @@
       },
       {
         "ddc": 61,
-        "current_count": 21,
-        "gap_to_100": 79
+        "current_count": 20,
+        "gap_to_100": 80
       },
       {
         "ddc": 62,
@@ -228,8 +358,8 @@
       },
       {
         "ddc": 77,
-        "current_count": 11,
-        "gap_to_100": 89
+        "current_count": 10,
+        "gap_to_100": 90
       },
       {
         "ddc": 78,
@@ -273,8 +403,8 @@
       },
       {
         "ddc": 86,
-        "current_count": 13,
-        "gap_to_100": 87
+        "current_count": 9,
+        "gap_to_100": 91
       },
       {
         "ddc": 87,
@@ -283,13 +413,13 @@
       },
       {
         "ddc": 88,
-        "current_count": 7,
-        "gap_to_100": 93
+        "current_count": 6,
+        "gap_to_100": 94
       },
       {
         "ddc": 89,
-        "current_count": 31,
-        "gap_to_100": 69
+        "current_count": 27,
+        "gap_to_100": 73
       },
       {
         "ddc": 90,
@@ -303,8 +433,8 @@
       },
       {
         "ddc": 92,
-        "current_count": 88,
-        "gap_to_100": 12
+        "current_count": 83,
+        "gap_to_100": 17
       },
       {
         "ddc": 93,
@@ -318,8 +448,8 @@
       },
       {
         "ddc": 95,
-        "current_count": 3,
-        "gap_to_100": 97
+        "current_count": 2,
+        "gap_to_100": 98
       },
       {
         "ddc": 96,
@@ -338,8 +468,8 @@
       },
       {
         "ddc": 99,
-        "current_count": 19,
-        "gap_to_100": 81
+        "current_count": 16,
+        "gap_to_100": 84
       },
       {
         "ddc": 100,
@@ -363,8 +493,8 @@
       },
       {
         "ddc": 104,
-        "current_count": 57,
-        "gap_to_100": 43
+        "current_count": 50,
+        "gap_to_100": 50
       },
       {
         "ddc": 106,
@@ -388,8 +518,8 @@
       },
       {
         "ddc": 112,
-        "current_count": 37,
-        "gap_to_100": 63
+        "current_count": 35,
+        "gap_to_100": 65
       },
       {
         "ddc": 113,
@@ -418,8 +548,8 @@
       },
       {
         "ddc": 118,
-        "current_count": 16,
-        "gap_to_100": 84
+        "current_count": 15,
+        "gap_to_100": 85
       },
       {
         "ddc": 119,
@@ -428,8 +558,8 @@
       },
       {
         "ddc": 120,
-        "current_count": 94,
-        "gap_to_100": 6
+        "current_count": 92,
+        "gap_to_100": 8
       },
       {
         "ddc": 121,
@@ -463,8 +593,8 @@
       },
       {
         "ddc": 127,
-        "current_count": 29,
-        "gap_to_100": 71
+        "current_count": 26,
+        "gap_to_100": 74
       },
       {
         "ddc": 129,
@@ -493,8 +623,8 @@
       },
       {
         "ddc": 134,
-        "current_count": 28,
-        "gap_to_100": 72
+        "current_count": 26,
+        "gap_to_100": 74
       },
       {
         "ddc": 135,
@@ -503,23 +633,23 @@
       },
       {
         "ddc": 136,
-        "current_count": 60,
-        "gap_to_100": 40
+        "current_count": 56,
+        "gap_to_100": 44
       },
       {
         "ddc": 137,
-        "current_count": 34,
-        "gap_to_100": 66
+        "current_count": 31,
+        "gap_to_100": 69
       },
       {
         "ddc": 138,
-        "current_count": 72,
-        "gap_to_100": 28
+        "current_count": 71,
+        "gap_to_100": 29
       },
       {
         "ddc": 139,
-        "current_count": 21,
-        "gap_to_100": 79
+        "current_count": 20,
+        "gap_to_100": 80
       },
       {
         "ddc": 140,
@@ -548,8 +678,8 @@
       },
       {
         "ddc": 145,
-        "current_count": 30,
-        "gap_to_100": 70
+        "current_count": 28,
+        "gap_to_100": 72
       },
       {
         "ddc": 146,
@@ -573,8 +703,8 @@
       },
       {
         "ddc": 151,
-        "current_count": 21,
-        "gap_to_100": 79
+        "current_count": 20,
+        "gap_to_100": 80
       },
       {
         "ddc": 154,
@@ -603,18 +733,18 @@
       },
       {
         "ddc": 161,
-        "current_count": 89,
-        "gap_to_100": 11
+        "current_count": 83,
+        "gap_to_100": 17
       },
       {
         "ddc": 162,
-        "current_count": 23,
-        "gap_to_100": 77
+        "current_count": 21,
+        "gap_to_100": 79
       },
       {
         "ddc": 163,
-        "current_count": 10,
-        "gap_to_100": 90
+        "current_count": 8,
+        "gap_to_100": 92
       },
       {
         "ddc": 164,
@@ -848,8 +978,8 @@
       },
       {
         "ddc": 213,
-        "current_count": 31,
-        "gap_to_100": 69
+        "current_count": 30,
+        "gap_to_100": 70
       },
       {
         "ddc": 214,
@@ -873,13 +1003,13 @@
       },
       {
         "ddc": 218,
-        "current_count": 47,
-        "gap_to_100": 53
+        "current_count": 43,
+        "gap_to_100": 57
       },
       {
         "ddc": 219,
-        "current_count": 21,
-        "gap_to_100": 79
+        "current_count": 20,
+        "gap_to_100": 80
       },
       {
         "ddc": 220,
@@ -888,8 +1018,8 @@
       },
       {
         "ddc": 221,
-        "current_count": 15,
-        "gap_to_100": 85
+        "current_count": 14,
+        "gap_to_100": 86
       },
       {
         "ddc": 222,
@@ -963,8 +1093,8 @@
       },
       {
         "ddc": 237,
-        "current_count": 24,
-        "gap_to_100": 76
+        "current_count": 23,
+        "gap_to_100": 77
       },
       {
         "ddc": 238,
@@ -978,8 +1108,8 @@
       },
       {
         "ddc": 240,
-        "current_count": 56,
-        "gap_to_100": 44
+        "current_count": 54,
+        "gap_to_100": 46
       },
       {
         "ddc": 241,
@@ -992,14 +1122,19 @@
         "gap_to_100": 94
       },
       {
+        "ddc": 243,
+        "current_count": 92,
+        "gap_to_100": 8
+      },
+      {
         "ddc": 244,
-        "current_count": 55,
-        "gap_to_100": 45
+        "current_count": 54,
+        "gap_to_100": 46
       },
       {
         "ddc": 245,
-        "current_count": 46,
-        "gap_to_100": 54
+        "current_count": 42,
+        "gap_to_100": 58
       },
       {
         "ddc": 246,
@@ -1008,8 +1143,8 @@
       },
       {
         "ddc": 247,
-        "current_count": 63,
-        "gap_to_100": 37
+        "current_count": 58,
+        "gap_to_100": 42
       },
       {
         "ddc": 248,
@@ -1043,23 +1178,23 @@
       },
       {
         "ddc": 256,
-        "current_count": 79,
-        "gap_to_100": 21
+        "current_count": 75,
+        "gap_to_100": 25
       },
       {
         "ddc": 257,
-        "current_count": 54,
-        "gap_to_100": 46
+        "current_count": 52,
+        "gap_to_100": 48
       },
       {
         "ddc": 258,
-        "current_count": 76,
-        "gap_to_100": 24
+        "current_count": 71,
+        "gap_to_100": 29
       },
       {
         "ddc": 260,
-        "current_count": 99,
-        "gap_to_100": 1
+        "current_count": 89,
+        "gap_to_100": 11
       },
       {
         "ddc": 261,
@@ -1188,8 +1323,8 @@
       },
       {
         "ddc": 288,
-        "current_count": 20,
-        "gap_to_100": 80
+        "current_count": 18,
+        "gap_to_100": 82
       },
       {
         "ddc": 289,
@@ -1228,13 +1363,13 @@
       },
       {
         "ddc": 298,
-        "current_count": 22,
-        "gap_to_100": 78
+        "current_count": 18,
+        "gap_to_100": 82
       },
       {
         "ddc": 308,
-        "current_count": 78,
-        "gap_to_100": 22
+        "current_count": 76,
+        "gap_to_100": 24
       },
       {
         "ddc": 309,
@@ -1253,13 +1388,13 @@
       },
       {
         "ddc": 312,
-        "current_count": 45,
-        "gap_to_100": 55
+        "current_count": 44,
+        "gap_to_100": 56
       },
       {
         "ddc": 313,
-        "current_count": 19,
-        "gap_to_100": 81
+        "current_count": 18,
+        "gap_to_100": 82
       },
       {
         "ddc": 315,
@@ -1268,8 +1403,8 @@
       },
       {
         "ddc": 316,
-        "current_count": 66,
-        "gap_to_100": 34
+        "current_count": 54,
+        "gap_to_100": 46
       },
       {
         "ddc": 317,
@@ -1278,8 +1413,8 @@
       },
       {
         "ddc": 318,
-        "current_count": 53,
-        "gap_to_100": 47
+        "current_count": 48,
+        "gap_to_100": 52
       },
       {
         "ddc": 322,
@@ -1308,8 +1443,8 @@
       },
       {
         "ddc": 335,
-        "current_count": 64,
-        "gap_to_100": 36
+        "current_count": 63,
+        "gap_to_100": 37
       },
       {
         "ddc": 336,
@@ -1388,8 +1523,8 @@
       },
       {
         "ddc": 360,
-        "current_count": 4,
-        "gap_to_100": 96
+        "current_count": 3,
+        "gap_to_100": 97
       },
       {
         "ddc": 365,
@@ -1403,13 +1538,18 @@
       },
       {
         "ddc": 367,
-        "current_count": 64,
-        "gap_to_100": 36
+        "current_count": 60,
+        "gap_to_100": 40
       },
       {
         "ddc": 368,
         "current_count": 54,
         "gap_to_100": 46
+      },
+      {
+        "ddc": 369,
+        "current_count": 73,
+        "gap_to_100": 27
       },
       {
         "ddc": 373,
@@ -1418,8 +1558,8 @@
       },
       {
         "ddc": 374,
-        "current_count": 29,
-        "gap_to_100": 71
+        "current_count": 28,
+        "gap_to_100": 72
       },
       {
         "ddc": 375,
@@ -1427,9 +1567,14 @@
         "gap_to_100": 84
       },
       {
+        "ddc": 376,
+        "current_count": 98,
+        "gap_to_100": 2
+      },
+      {
         "ddc": 377,
-        "current_count": 93,
-        "gap_to_100": 7
+        "current_count": 84,
+        "gap_to_100": 16
       },
       {
         "ddc": 379,
@@ -1498,8 +1643,8 @@
       },
       {
         "ddc": 396,
-        "current_count": 25,
-        "gap_to_100": 75
+        "current_count": 22,
+        "gap_to_100": 78
       },
       {
         "ddc": 397,
@@ -1538,8 +1683,8 @@
       },
       {
         "ddc": 405,
-        "current_count": 15,
-        "gap_to_100": 85
+        "current_count": 14,
+        "gap_to_100": 86
       },
       {
         "ddc": 407,
@@ -1578,8 +1723,8 @@
       },
       {
         "ddc": 416,
-        "current_count": 38,
-        "gap_to_100": 62
+        "current_count": 36,
+        "gap_to_100": 64
       },
       {
         "ddc": 417,
@@ -1623,8 +1768,8 @@
       },
       {
         "ddc": 426,
-        "current_count": 96,
-        "gap_to_100": 4
+        "current_count": 90,
+        "gap_to_100": 10
       },
       {
         "ddc": 427,
@@ -1663,8 +1808,8 @@
       },
       {
         "ddc": 436,
-        "current_count": 75,
-        "gap_to_100": 25
+        "current_count": 74,
+        "gap_to_100": 26
       },
       {
         "ddc": 437,
@@ -1728,13 +1873,13 @@
       },
       {
         "ddc": 452,
-        "current_count": 44,
-        "gap_to_100": 56
+        "current_count": 43,
+        "gap_to_100": 57
       },
       {
         "ddc": 454,
-        "current_count": 66,
-        "gap_to_100": 34
+        "current_count": 65,
+        "gap_to_100": 35
       },
       {
         "ddc": 455,
@@ -1743,8 +1888,8 @@
       },
       {
         "ddc": 456,
-        "current_count": 39,
-        "gap_to_100": 61
+        "current_count": 38,
+        "gap_to_100": 62
       },
       {
         "ddc": 457,
@@ -1823,13 +1968,18 @@
       },
       {
         "ddc": 474,
-        "current_count": 40,
-        "gap_to_100": 60
+        "current_count": 39,
+        "gap_to_100": 61
       },
       {
         "ddc": 475,
         "current_count": 2,
         "gap_to_100": 98
+      },
+      {
+        "ddc": 476,
+        "current_count": 94,
+        "gap_to_100": 6
       },
       {
         "ddc": 477,
@@ -1852,19 +2002,14 @@
         "gap_to_100": 89
       },
       {
-        "ddc": 481,
-        "current_count": 1,
-        "gap_to_100": 99
-      },
-      {
         "ddc": 482,
         "current_count": 1,
         "gap_to_100": 99
       },
       {
         "ddc": 483,
-        "current_count": 48,
-        "gap_to_100": 52
+        "current_count": 47,
+        "gap_to_100": 53
       },
       {
         "ddc": 485,
@@ -1947,9 +2092,14 @@
         "gap_to_100": 99
       },
       {
+        "ddc": 504,
+        "current_count": 93,
+        "gap_to_100": 7
+      },
+      {
         "ddc": 505,
-        "current_count": 83,
-        "gap_to_100": 17
+        "current_count": 80,
+        "gap_to_100": 20
       },
       {
         "ddc": 506,
@@ -2003,8 +2153,8 @@
       },
       {
         "ddc": 523,
-        "current_count": 61,
-        "gap_to_100": 39
+        "current_count": 60,
+        "gap_to_100": 40
       },
       {
         "ddc": 525,
@@ -2018,8 +2168,8 @@
       },
       {
         "ddc": 527,
-        "current_count": 30,
-        "gap_to_100": 70
+        "current_count": 29,
+        "gap_to_100": 71
       },
       {
         "ddc": 528,
@@ -2048,8 +2198,8 @@
       },
       {
         "ddc": 534,
-        "current_count": 3,
-        "gap_to_100": 97
+        "current_count": 2,
+        "gap_to_100": 98
       },
       {
         "ddc": 535,
@@ -2098,8 +2248,8 @@
       },
       {
         "ddc": 545,
-        "current_count": 49,
-        "gap_to_100": 51
+        "current_count": 47,
+        "gap_to_100": 53
       },
       {
         "ddc": 546,
@@ -2158,13 +2308,13 @@
       },
       {
         "ddc": 562,
-        "current_count": 51,
-        "gap_to_100": 49
+        "current_count": 49,
+        "gap_to_100": 51
       },
       {
         "ddc": 564,
-        "current_count": 91,
-        "gap_to_100": 9
+        "current_count": 88,
+        "gap_to_100": 12
       },
       {
         "ddc": 567,
@@ -2243,13 +2393,13 @@
       },
       {
         "ddc": 586,
-        "current_count": 17,
-        "gap_to_100": 83
+        "current_count": 15,
+        "gap_to_100": 85
       },
       {
         "ddc": 587,
-        "current_count": 75,
-        "gap_to_100": 25
+        "current_count": 65,
+        "gap_to_100": 35
       },
       {
         "ddc": 588,
@@ -2313,13 +2463,23 @@
       },
       {
         "ddc": 603,
-        "current_count": 52,
-        "gap_to_100": 48
+        "current_count": 51,
+        "gap_to_100": 49
       },
       {
         "ddc": 604,
         "current_count": 5,
         "gap_to_100": 95
+      },
+      {
+        "ddc": 605,
+        "current_count": 27,
+        "gap_to_100": 73
+      },
+      {
+        "ddc": 606,
+        "current_count": 6,
+        "gap_to_100": 94
       },
       {
         "ddc": 607,
@@ -2352,6 +2512,11 @@
         "gap_to_100": 70
       },
       {
+        "ddc": 619,
+        "current_count": 72,
+        "gap_to_100": 28
+      },
+      {
         "ddc": 622,
         "current_count": 3,
         "gap_to_100": 97
@@ -2365,6 +2530,11 @@
         "ddc": 625,
         "current_count": 1,
         "gap_to_100": 99
+      },
+      {
+        "ddc": 626,
+        "current_count": 6,
+        "gap_to_100": 94
       },
       {
         "ddc": 627,
@@ -2437,6 +2607,11 @@
         "gap_to_100": 95
       },
       {
+        "ddc": 644,
+        "current_count": 61,
+        "gap_to_100": 39
+      },
+      {
         "ddc": 645,
         "current_count": 4,
         "gap_to_100": 96
@@ -2475,6 +2650,11 @@
         "ddc": 653,
         "current_count": 1,
         "gap_to_100": 99
+      },
+      {
+        "ddc": 655,
+        "current_count": 28,
+        "gap_to_100": 72
       },
       {
         "ddc": 660,
@@ -2527,6 +2707,16 @@
         "gap_to_100": 75
       },
       {
+        "ddc": 671,
+        "current_count": 85,
+        "gap_to_100": 15
+      },
+      {
+        "ddc": 672,
+        "current_count": 80,
+        "gap_to_100": 20
+      },
+      {
         "ddc": 673,
         "current_count": 1,
         "gap_to_100": 99
@@ -2537,6 +2727,11 @@
         "gap_to_100": 99
       },
       {
+        "ddc": 675,
+        "current_count": 28,
+        "gap_to_100": 72
+      },
+      {
         "ddc": 676,
         "current_count": 8,
         "gap_to_100": 92
@@ -2545,6 +2740,11 @@
         "ddc": 677,
         "current_count": 12,
         "gap_to_100": 88
+      },
+      {
+        "ddc": 678,
+        "current_count": 86,
+        "gap_to_100": 14
       },
       {
         "ddc": 679,
@@ -2560,6 +2760,11 @@
         "ddc": 681,
         "current_count": 9,
         "gap_to_100": 91
+      },
+      {
+        "ddc": 682,
+        "current_count": 76,
+        "gap_to_100": 24
       },
       {
         "ddc": 683,
@@ -2592,6 +2797,11 @@
         "gap_to_100": 90
       },
       {
+        "ddc": 689,
+        "current_count": 1,
+        "gap_to_100": 99
+      },
+      {
         "ddc": 690,
         "current_count": 10,
         "gap_to_100": 90
@@ -2607,6 +2817,16 @@
         "gap_to_100": 97
       },
       {
+        "ddc": 694,
+        "current_count": 87,
+        "gap_to_100": 13
+      },
+      {
+        "ddc": 695,
+        "current_count": 54,
+        "gap_to_100": 46
+      },
+      {
         "ddc": 696,
         "current_count": 1,
         "gap_to_100": 99
@@ -2617,6 +2837,16 @@
         "gap_to_100": 96
       },
       {
+        "ddc": 698,
+        "current_count": 96,
+        "gap_to_100": 4
+      },
+      {
+        "ddc": 699,
+        "current_count": 3,
+        "gap_to_100": 97
+      },
+      {
         "ddc": 702,
         "current_count": 23,
         "gap_to_100": 77
@@ -2625,6 +2855,11 @@
         "ddc": 703,
         "current_count": 2,
         "gap_to_100": 98
+      },
+      {
+        "ddc": 705,
+        "current_count": 21,
+        "gap_to_100": 79
       },
       {
         "ddc": 706,
@@ -2657,6 +2892,11 @@
         "gap_to_100": 53
       },
       {
+        "ddc": 713,
+        "current_count": 16,
+        "gap_to_100": 84
+      },
+      {
         "ddc": 714,
         "current_count": 1,
         "gap_to_100": 99
@@ -2665,6 +2905,26 @@
         "ddc": 715,
         "current_count": 1,
         "gap_to_100": 99
+      },
+      {
+        "ddc": 716,
+        "current_count": 32,
+        "gap_to_100": 68
+      },
+      {
+        "ddc": 717,
+        "current_count": 97,
+        "gap_to_100": 3
+      },
+      {
+        "ddc": 718,
+        "current_count": 15,
+        "gap_to_100": 85
+      },
+      {
+        "ddc": 719,
+        "current_count": 27,
+        "gap_to_100": 73
       },
       {
         "ddc": 721,
@@ -2783,13 +3043,18 @@
       },
       {
         "ddc": 751,
-        "current_count": 51,
-        "gap_to_100": 49
+        "current_count": 50,
+        "gap_to_100": 50
       },
       {
         "ddc": 752,
         "current_count": 2,
         "gap_to_100": 98
+      },
+      {
+        "ddc": 753,
+        "current_count": 35,
+        "gap_to_100": 65
       },
       {
         "ddc": 754,
@@ -2800,6 +3065,11 @@
         "ddc": 755,
         "current_count": 2,
         "gap_to_100": 98
+      },
+      {
+        "ddc": 756,
+        "current_count": 8,
+        "gap_to_100": 92
       },
       {
         "ddc": 757,
@@ -2822,9 +3092,24 @@
         "gap_to_100": 99
       },
       {
+        "ddc": 762,
+        "current_count": 7,
+        "gap_to_100": 93
+      },
+      {
+        "ddc": 763,
+        "current_count": 30,
+        "gap_to_100": 70
+      },
+      {
         "ddc": 764,
         "current_count": 1,
         "gap_to_100": 99
+      },
+      {
+        "ddc": 765,
+        "current_count": 15,
+        "gap_to_100": 85
       },
       {
         "ddc": 766,
@@ -2853,18 +3138,18 @@
       },
       {
         "ddc": 772,
-        "current_count": 48,
-        "gap_to_100": 52
+        "current_count": 46,
+        "gap_to_100": 54
       },
       {
         "ddc": 773,
-        "current_count": 20,
-        "gap_to_100": 80
+        "current_count": 19,
+        "gap_to_100": 81
       },
       {
         "ddc": 774,
-        "current_count": 18,
-        "gap_to_100": 82
+        "current_count": 15,
+        "gap_to_100": 85
       },
       {
         "ddc": 775,
@@ -2893,8 +3178,8 @@
       },
       {
         "ddc": 784,
-        "current_count": 26,
-        "gap_to_100": 74
+        "current_count": 25,
+        "gap_to_100": 75
       },
       {
         "ddc": 785,
@@ -2918,8 +3203,8 @@
       },
       {
         "ddc": 789,
-        "current_count": 31,
-        "gap_to_100": 69
+        "current_count": 30,
+        "gap_to_100": 70
       },
       {
         "ddc": 790,
@@ -2983,8 +3268,8 @@
       },
       {
         "ddc": 812,
-        "current_count": 51,
-        "gap_to_100": 49
+        "current_count": 50,
+        "gap_to_100": 50
       },
       {
         "ddc": 814,
@@ -3008,8 +3293,8 @@
       },
       {
         "ddc": 819,
-        "current_count": 88,
-        "gap_to_100": 12
+        "current_count": 84,
+        "gap_to_100": 16
       },
       {
         "ddc": 824,
@@ -3018,8 +3303,8 @@
       },
       {
         "ddc": 825,
-        "current_count": 42,
-        "gap_to_100": 58
+        "current_count": 37,
+        "gap_to_100": 63
       },
       {
         "ddc": 826,
@@ -3073,8 +3358,8 @@
       },
       {
         "ddc": 837,
-        "current_count": 14,
-        "gap_to_100": 86
+        "current_count": 12,
+        "gap_to_100": 88
       },
       {
         "ddc": 838,
@@ -3123,8 +3408,8 @@
       },
       {
         "ddc": 847,
-        "current_count": 18,
-        "gap_to_100": 82
+        "current_count": 15,
+        "gap_to_100": 85
       },
       {
         "ddc": 848,
@@ -3213,8 +3498,8 @@
       },
       {
         "ddc": 865,
-        "current_count": 18,
-        "gap_to_100": 82
+        "current_count": 14,
+        "gap_to_100": 86
       },
       {
         "ddc": 866,
@@ -3223,8 +3508,8 @@
       },
       {
         "ddc": 867,
-        "current_count": 23,
-        "gap_to_100": 77
+        "current_count": 20,
+        "gap_to_100": 80
       },
       {
         "ddc": 868,
@@ -3303,8 +3588,8 @@
       },
       {
         "ddc": 883,
-        "current_count": 44,
-        "gap_to_100": 56
+        "current_count": 43,
+        "gap_to_100": 57
       },
       {
         "ddc": 884,
@@ -3368,8 +3653,8 @@
       },
       {
         "ddc": 898,
-        "current_count": 22,
-        "gap_to_100": 78
+        "current_count": 20,
+        "gap_to_100": 80
       },
       {
         "ddc": 899,
@@ -3378,13 +3663,18 @@
       },
       {
         "ddc": 902,
-        "current_count": 95,
-        "gap_to_100": 5
+        "current_count": 85,
+        "gap_to_100": 15
       },
       {
         "ddc": 903,
-        "current_count": 74,
-        "gap_to_100": 26
+        "current_count": 71,
+        "gap_to_100": 29
+      },
+      {
+        "ddc": 904,
+        "current_count": 99,
+        "gap_to_100": 1
       },
       {
         "ddc": 905,
@@ -3398,33 +3688,33 @@
       },
       {
         "ddc": 908,
-        "current_count": 44,
-        "gap_to_100": 56
+        "current_count": 42,
+        "gap_to_100": 58
       },
       {
         "ddc": 912,
-        "current_count": 56,
-        "gap_to_100": 44
+        "current_count": 52,
+        "gap_to_100": 48
       },
       {
         "ddc": 913,
-        "current_count": 99,
-        "gap_to_100": 1
+        "current_count": 94,
+        "gap_to_100": 6
       },
       {
         "ddc": 921,
-        "current_count": 83,
-        "gap_to_100": 17
+        "current_count": 77,
+        "gap_to_100": 23
       },
       {
         "ddc": 922,
-        "current_count": 29,
-        "gap_to_100": 71
+        "current_count": 28,
+        "gap_to_100": 72
       },
       {
         "ddc": 923,
-        "current_count": 90,
-        "gap_to_100": 10
+        "current_count": 83,
+        "gap_to_100": 17
       },
       {
         "ddc": 924,
@@ -3433,68 +3723,78 @@
       },
       {
         "ddc": 925,
-        "current_count": 48,
-        "gap_to_100": 52
+        "current_count": 43,
+        "gap_to_100": 57
       },
       {
         "ddc": 926,
-        "current_count": 44,
-        "gap_to_100": 56
+        "current_count": 42,
+        "gap_to_100": 58
       },
       {
         "ddc": 927,
-        "current_count": 63,
-        "gap_to_100": 37
-      },
-      {
-        "ddc": 928,
-        "current_count": 67,
-        "gap_to_100": 33
-      },
-      {
-        "ddc": 957,
-        "current_count": 87,
-        "gap_to_100": 13
-      },
-      {
-        "ddc": 964,
-        "current_count": 88,
-        "gap_to_100": 12
-      },
-      {
-        "ddc": 965,
-        "current_count": 87,
-        "gap_to_100": 13
-      },
-      {
-        "ddc": 969,
         "current_count": 60,
         "gap_to_100": 40
       },
       {
+        "ddc": 928,
+        "current_count": 60,
+        "gap_to_100": 40
+      },
+      {
+        "ddc": 957,
+        "current_count": 86,
+        "gap_to_100": 14
+      },
+      {
+        "ddc": 963,
+        "current_count": 93,
+        "gap_to_100": 7
+      },
+      {
+        "ddc": 964,
+        "current_count": 82,
+        "gap_to_100": 18
+      },
+      {
+        "ddc": 965,
+        "current_count": 81,
+        "gap_to_100": 19
+      },
+      {
+        "ddc": 969,
+        "current_count": 51,
+        "gap_to_100": 49
+      },
+      {
         "ddc": 981,
-        "current_count": 95,
-        "gap_to_100": 5
+        "current_count": 89,
+        "gap_to_100": 11
+      },
+      {
+        "ddc": 984,
+        "current_count": 94,
+        "gap_to_100": 6
       },
       {
         "ddc": 987,
-        "current_count": 95,
-        "gap_to_100": 5
+        "current_count": 88,
+        "gap_to_100": 12
       },
       {
         "ddc": 988,
-        "current_count": 83,
-        "gap_to_100": 17
+        "current_count": 78,
+        "gap_to_100": 22
       },
       {
         "ddc": 989,
-        "current_count": 76,
-        "gap_to_100": 24
+        "current_count": 72,
+        "gap_to_100": 28
       },
       {
         "ddc": 990,
-        "current_count": 64,
-        "gap_to_100": 36
+        "current_count": 63,
+        "gap_to_100": 37
       },
       {
         "ddc": 991,
@@ -3503,13 +3803,13 @@
       },
       {
         "ddc": 992,
-        "current_count": 11,
-        "gap_to_100": 89
+        "current_count": 9,
+        "gap_to_100": 91
       },
       {
         "ddc": 999,
-        "current_count": 48,
-        "gap_to_100": 52
+        "current_count": 43,
+        "gap_to_100": 57
       }
     ]
   }
