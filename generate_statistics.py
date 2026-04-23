@@ -43,18 +43,29 @@ existing_ddc = set(ddc_counts['DDC'].apply(pad_ddc))
 existing_int_ddc = {d for d in existing_ddc if '.' not in d}
 missing_ddc = sorted(all_ddc - existing_int_ddc)
 
+# 将完全缺失的三位整数 DDC 作为 0 条记录并入 under_100 详情
+missing_as_under_100 = [
+    {
+        'ddc': code,
+        'current_count': 0,
+        'gap_to_100': 100
+    }
+    for code in missing_ddc
+]
+
+ddc_under_100_details = sorted(
+    ddc_result + missing_as_under_100,
+    key=lambda item: pad_ddc(item['ddc'])
+)
+
 output = {
     'abstract_stats': abstract_stats,
-    'ddc_missing_001_to_999': {
-        'count': len(missing_ddc),
-        'codes': missing_ddc
-    },
     'ddc_under_100': {
         'total_ddc_classes': int(len(ddc_counts)),
         'ddc_over_100_count': int((ddc_counts['count'] >= 100).sum()),
         'ddc_over_100_total_records': int(ddc_counts[ddc_counts['count'] >= 100]['count'].sum()),
-        'ddc_under_100_count': int(len(under_100)),
-        'details': ddc_result
+        'ddc_under_100_count': int(len(ddc_under_100_details)),
+        'details': ddc_under_100_details
     }
 }
 
