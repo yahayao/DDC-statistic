@@ -17,6 +17,8 @@ DDC that already having 100 samples will not show details of the distribution.
 | 002 | 58 |
 | 003 | 44 |
 | 007 | 11 |
+| 008 | 0 |
+| 009 | 0 |
 | 010 | 2 |
 | 011 | 13 |
 | 012 | 25 |
@@ -54,6 +56,7 @@ DDC that already having 100 samples will not show details of the distribution.
 | 045 | 3 |
 | 046 | 1 |
 | 047 | 1 |
+| 048 | 0 |
 | 049 | 13 |
 | 050 | 5 |
 | 051 | 1 |
@@ -347,6 +350,7 @@ DDC that already having 100 samples will not show details of the distribution.
 | 403 | 69 |
 | 404 | 35 |
 | 405 | 14 |
+| 406 | 0 |
 | 407 | 17 |
 | 408 | 4 |
 | 409 | 6 |
@@ -410,6 +414,7 @@ DDC that already having 100 samples will not show details of the distribution.
 | 478 | 4 |
 | 479 | 1 |
 | 480 | 11 |
+| 481 | 0 |
 | 482 | 1 |
 | 483 | 47 |
 | 485 | 3 |
