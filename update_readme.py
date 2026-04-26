@@ -66,6 +66,7 @@ def _build_underfilled_table(underfilled: list[dict[str, Any]]) -> str:
 def build_statistics_block(stats: dict[str, Any]) -> str:
     abstract_stats = stats.get("abstract_stats", {})
     ddc_under_100 = stats.get("ddc_under_100", {})
+    ddc_under_100_count = stats.get("ddc_under_100_count", 760)
 
     valid_sample_total = _safe_int(
         stats.get(
@@ -108,6 +109,7 @@ def build_statistics_block(stats: dict[str, Any]) -> str:
         "### DDC data distribution\n\n"
         "DDC that already having 100 samples will not show details of the distribution.\n\n"
         f"**Vaild samples number in total: {valid_sample_total}**\n\n"
+        f"DDC number that not satisfy the requirement of 100 samples have: {ddc_under_100_count} \n\n"
         "**DDC number that not satisfy the requirement of 100 samples:**\n"
         f"{table}\n\n"
         "### DDC data quality\n\n"
