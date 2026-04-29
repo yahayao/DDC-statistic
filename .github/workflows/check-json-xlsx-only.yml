@@ -1,4 +1,4 @@
-name: json/xlsx only ci check
+name: json_xlsx_only_check
 
 on:
   pull_request:
