@@ -1,0 +1,208 @@
+import pandas as pd
+import os
+import re
+from langdetect import detect, LangDetectException
+from dataclean import clean_text  # 复用已有的清洗逻辑
+
+# 所有待合并的文件及其列映射
+# 统一目标列：DDC, Title, description
+FILES = [
+    {
+        'path': '0-49.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '053to99.xlsx',
+        'rename': {'DDC': 'DDC', 'title': 'Title', 'description': 'description'},
+    },
+    {
+        'path': '104to169.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '104to169_2.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '213-298.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '308 - 396.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '403to474.xlsx',
+        'rename': {'mds_code': 'DDC', 'title': 'Title', 'description': 'description'},
+        'drop': ['bookid'],
+    },
+    {
+        'path': '476to603.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '605-765.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '766-909.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '910-940.xlsx',
+        'rename': {},
+    },
+    {
+        'path': '941-970.xlsx',
+        'rename': {'mds_code': 'DDC', 'title': 'Title', 'description': 'description'},
+    },
+    {
+        'path': '971-999.xlsx',
+        'rename': {},
+    },
+    {
+        'path': 'Lib_Dataset_Level3_26Nov25_final.xlsx',
+        'rename': {'DDC-L3': 'DDC', 'Title': 'Title', 'Abstract': 'description'},
+    },
+]
+
+TARGET_COLS = ['DDC', 'Title', 'description']
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BOOK_DESC_PATTERN = re.compile(r'^book_descriptions_all(\d*)\.csv$', re.IGNORECASE)
+
+# 是否启用“仅保留英语描述”过滤。
+# 这段逻辑用于剔除德语/法语等非英语摘要，适合只做英文数据集时开启。
+# 目前按你的要求先不用，默认关闭；如需启用改为 True。
+ENABLE_ENGLISH_ONLY_FILTER = False
+
+
+def get_auto_book_description_files():
+    candidates = []
+    for name in os.listdir(BASE_DIR):
+        match = BOOK_DESC_PATTERN.match(name)
+        if not match:
+            continue
+        suffix = match.group(1)
+        # book_descriptions_all.csv 记为 1，book_descriptions_all2.csv 记为 2，以此类推
+        order = 1 if suffix == '' else int(suffix)
+        candidates.append((order, name))
+
+    candidates.sort(key=lambda x: (x[0], x[1].lower()))
+    return [
+        {
+            'path': name,
+            'rename': {},
+        }
+        for _, name in candidates
+    ]
+
+
+def load_and_normalize(file_cfg):
+    path = file_cfg['path']
+    file_path = os.path.join(BASE_DIR, path)
+    rename_map = file_cfg.get('rename', {})
+    drop_cols = file_cfg.get('drop', [])
+
+    print(f"  读取: {file_path}")
+    ext = os.path.splitext(path)[1].lower()
+    if ext in ['.xlsx', '.xls']:
+        df = pd.read_excel(file_path)
+    elif ext == '.csv':
+        df = pd.read_csv(file_path, encoding='utf-8-sig')
+    else:
+        raise ValueError(f"不支持的文件类型: {path}")
+
+    df = df.drop(columns=[c for c in drop_cols if c in df.columns])
+
+    if rename_map:
+        df = df.rename(columns=rename_map)
+
+    for col in TARGET_COLS:
+        if col not in df.columns:
+            df[col] = ''
+    df = df[TARGET_COLS]
+
+    return df
+
+
+def main():
+    auto_book_files = get_auto_book_description_files()
+    files_to_load = FILES + auto_book_files
+
+    all_dfs = []
+    print("=== 第一步：读取并规范化各文件 ===")
+    if auto_book_files:
+        print(f"自动发现 book_descriptions_all 系列 CSV: {len(auto_book_files)} 个")
+        for cfg in auto_book_files:
+            print(f"  - {cfg['path']}")
+    else:
+        print("未发现 book_descriptions_all 系列 CSV")
+
+    for cfg in files_to_load:
+        df = load_and_normalize(cfg)
+        all_dfs.append(df)
+        print(f"    -> {len(df)} 条")
+
+    print("\n=== 第二步：合并所有数据 ===")
+    merged = pd.concat(all_dfs, ignore_index=True)
+    print(f"合并后总计: {len(merged)} 条")
+
+    print("\n=== 第二步（补）：文本清洗（Title + description）===")
+    before_clean = len(merged)
+    for col in ['Title', 'description']:
+        merged[col] = merged[col].apply(clean_text)
+    # 清洗后去掉 description 变为空或仅空白的行
+    merged = merged[merged['description'].astype(str).str.strip() != ''].reset_index(drop=True)
+    after_clean = len(merged)
+    print(f"清洗前: {before_clean} 条 -> 清洗后: {after_clean} 条，去除 {before_clean - after_clean} 条（description 清洗后为空）")
+
+    print("\n=== 第二步（补2）：过滤 abstract 少于 15 个词的行 ===")
+    before_filter = len(merged)
+    merged = merged[merged['description'].astype(str).str.split().str.len() >= 15].reset_index(drop=True)
+    print(f"过滤前: {before_filter} 条 -> 过滤后: {len(merged)} 条，去除 {before_filter - len(merged)} 条")
+
+    # 这段是“非英语过滤”逻辑：通过 langdetect 检测 description 语言，
+    # 只保留英语（en）记录。当前默认不开启，避免误删数据。
+    if ENABLE_ENGLISH_ONLY_FILTER:
+        print("\n=== 第二步（补3）：过滤非英语行（用 langdetect 检测 description 语言）===")
+
+        def is_english(text):
+            try:
+                return detect(str(text)) == 'en'
+            except LangDetectException:
+                return False
+
+        before_lang = len(merged)
+        merged = merged[merged['description'].apply(is_english)].reset_index(drop=True)
+        print(f"过滤前: {before_lang} 条 -> 过滤后: {len(merged)} 条，去除 {before_lang - len(merged)} 条")
+    else:
+        print("\n=== 第二步（补3）：非英语过滤已关闭（按配置跳过）===")
+
+    print("\n=== 第三步：按 DDC 排序 ===")
+    # 整数部分补零至三位，如 2->002, 10->010, 572.1->572.1
+    def pad_ddc(val):
+        val = str(val).strip()
+        if '.' in val:
+            integer, decimal = val.split('.', 1)
+            return integer.zfill(3) + '.' + decimal
+        return val.zfill(3)
+    merged['DDC'] = merged['DDC'].apply(pad_ddc)
+    merged = merged.sort_values(by='DDC', na_position='last').reset_index(drop=True)
+    print("排序完成")
+
+    print("\n=== 第四步：去重（DDC + Title + description 三列全相同才删除）===")
+    before = len(merged)
+    merged = merged.drop_duplicates(subset=['DDC', 'Title', 'description']).reset_index(drop=True)
+    after = len(merged)
+    print(f"去重前: {before} 条 -> 去重后: {after} 条，减少 {before - after} 条")
+
+    # 输出到 data 目录（当前脚本目录的上一级）
+    output_dir = os.path.abspath(os.path.join(BASE_DIR, '..'))
+    os.makedirs(output_dir, exist_ok=True)
+    output = os.path.join(output_dir, 'merged_dedup_all3cols.xlsx')
+    merged.to_excel(output, index=False)
+    print(f"\n完成！结果已保存至: {output}")
+
+
+if __name__ == '__main__':
+    main()

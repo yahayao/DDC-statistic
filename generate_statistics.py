@@ -1,7 +1,7 @@
 import pandas as pd
 import json
 
-INPUT_FILE = 'merged_dedup_all3cols.xlsx'  # 改成 merged_dedup_all3cols.xlsx 也可
+INPUT_FILE = 'data/merged_dedup_all3cols.xlsx'  # 改成 merged_dedup_all3cols.xlsx 也可
 
 print(f"读取: {INPUT_FILE} ...")
 df = pd.read_excel(INPUT_FILE)
