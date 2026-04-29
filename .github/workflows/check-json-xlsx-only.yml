@@ -1,0 +1,71 @@
+name: json/xlsx only ci check
+
+on:
+  workflow_call:
+    outputs:
+      allowed:
+        description: "check if all changed files are .json or .xlsx"
+        value: ${{ jobs.check.outputs.allowed }}
+      filenames:
+        description: "changed file names list"
+        value: ${{ jobs.check.outputs.filenames }}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    outputs:
+      allowed: ${{ steps.check-files.outputs.allowed }}
+      filenames: ${{ steps.check-files.outputs.filenames }}
+    steps:
+      - name: Check if all changed files are .json or .xlsx
+        id: check-files
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const prNumber = context.payload.pull_request?.number;
+            const issueNumber = context.issue?.number;
+
+            // 支持从 pull_request 事件和 workflow_call 两种方式获取 PR 编号
+            const number = prNumber || issueNumber;
+            if (!number) {
+              core.setFailed('无法获取 PR 编号。');
+              return;
+            }
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            // 获取 PR 变更文件列表
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner,
+              repo,
+              pull_number: number,
+              per_page: 100
+            });
+
+            if (files.length === 0) {
+              core.info('没有检测到变更文件，判定为不允许。');
+              core.setOutput('allowed', 'false');
+              return;
+            }
+
+            const filenames = files.map(f => f.filename);
+            core.info(`变更文件：${filenames.join('、')}`);
+
+            // 判断所有文件后缀是否为 .json 或 .xlsx（忽略大小写）
+            const allowedExtensions = ['.json', '.xlsx'];
+            const allAllowed = files.every(f =>
+              allowedExtensions.some(ext => f.filename.toLowerCase().endsWith(ext))
+            );
+
+            if (allAllowed) {
+              core.info('✅ 所有变更文件均为 .json 或 .xlsx。');
+              core.setOutput('allowed', 'true');
+              core.setOutput('filenames', filenames.join(', '));
+            } else {
+              const disallowed = files
+                .filter(f => !allowedExtensions.some(ext => f.filename.toLowerCase().endsWith(ext)))
+                .map(f => f.filename);
+              core.info(`❌ 存在不允许的文件：${disallowed.join('、')}。`);
+              core.setOutput('allowed', 'false');
+            }
