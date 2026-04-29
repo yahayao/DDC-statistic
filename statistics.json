@@ -2,8 +2,8 @@
   "abstract_stats": {
     "max": 8019,
     "min": 67,
-    "mean": 654.07,
-    "total_records": 235145
+    "mean": 653.96,
+    "total_records": 235317
   },
   "ddc_under_100": {
     "total_ddc_classes": 997,
@@ -1313,18 +1313,18 @@
       },
       {
         "ddc": 309,
-        "current_count": 5,
-        "gap_to_100": 95
+        "current_count": 74,
+        "gap_to_100": 26
       },
       {
         "ddc": 310,
-        "current_count": 3,
-        "gap_to_100": 97
+        "current_count": 96,
+        "gap_to_100": 4
       },
       {
         "ddc": 311,
-        "current_count": 2,
-        "gap_to_100": 98
+        "current_count": 12,
+        "gap_to_100": 88
       },
       {
         "ddc": 312,
