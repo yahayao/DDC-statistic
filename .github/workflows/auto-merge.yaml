@@ -40,7 +40,7 @@ jobs:
 
             core.setOutput('ok', ok);
 
-      - name: 启用 auto-merge
+      - name: 直接合并 PR
         if: steps.check.outputs.ok == 'true'
         uses: actions/github-script@v7
         with:
@@ -48,7 +48,7 @@ jobs:
           script: |
             await github.graphql(`
               mutation {
-                enablePullRequestAutoMerge(input: {
+                mergePullRequest(input: {
                   pullRequestId: "${context.payload.pull_request.node_id}",
                   mergeMethod: REBASE
                 }) {
@@ -57,24 +57,6 @@ jobs:
               }
             `);
 
-      - name: 禁用 auto-merge
+      - name: 跳过（非纯 CSV）
         if: steps.check.outputs.ok != 'true'
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ steps.app-token.outputs.token }}
-          script: |
-            // 非纯 CSV 的 PR 关闭 auto-merge，等待人工 review 后手动合并
-            try {
-              await github.graphql(`
-                mutation {
-                  disablePullRequestAutoMerge(input: {
-                    pullRequestId: "${context.payload.pull_request.node_id}"
-                  }) {
-                    clientMutationId
-                  }
-                }
-              `);
-            } catch (e) {
-              // auto-merge 可能之前未启用，忽略即可
-              core.warning(`disable auto-merge skipped: ${e.message}`);
-            }
+        run: echo "PR 包含非 CSV 文件，跳过自动合并"
