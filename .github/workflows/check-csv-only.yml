@@ -45,9 +45,31 @@ jobs:
               return;
             }
 
+      - name: Validate GitHub App secrets
+        if: steps.csv.outputs.csv_only == 'true'
+        env:
+          GH_APP_ID: ${{ secrets.GH_APP_ID }}
+          GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+        run: |
+          if [ -z "$GH_APP_ID" ] || [ -z "$GH_APP_PRIVATE_KEY" ]; then
+            echo "::error::Missing GH_APP_ID or GH_APP_PRIVATE_KEY secret."
+            echo "::error::Create a GitHub App and add its credentials to repository secrets."
+            exit 1
+          fi
+
+      - name: Create GitHub App token
+        if: steps.csv.outputs.csv_only == 'true'
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
       - name: 自动变基合并（仅 CSV）
         if: steps.csv.outputs.csv_only == 'true'
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
+          token: ${{ steps.app-token.outputs.token }}
           pull-request-number: ${{ github.event.pull_request.number }}
           merge-method: rebase
