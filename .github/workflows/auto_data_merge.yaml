@@ -6,16 +6,37 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   merge_dedup:
     runs-on: ubuntu-latest
     steps:
+      - name: Validate GitHub App secrets
+        env:
+          GH_APP_ID: ${{ secrets.GH_APP_ID }}
+          GH_APP_PRIVATE_KEY: ${{ secrets.GH_APP_PRIVATE_KEY }}
+        run: |
+          if [ -z "$GH_APP_ID" ] || [ -z "$GH_APP_PRIVATE_KEY" ]; then
+            echo "::error::Missing GH_APP_ID or GH_APP_PRIVATE_KEY secret."
+            echo "::error::Create a GitHub App and add its credentials to repository secrets."
+            exit 1
+          fi
+
+      - name: Create GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
       - name: Checkout
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ steps.app-token.outputs.token }}
+          persist-credentials: false
 
       - name: Detect CSV changes
         id: csv
@@ -44,14 +65,39 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install uv
+      - name: Setup uv
         if: steps.csv.outputs.changed == 'true'
-        run: python -m pip install --upgrade pip uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          enable-cache: true
 
       - name: Sync dependencies
         if: steps.csv.outputs.changed == 'true'
-        run: uv sync
+        run: uv sync --frozen --python 3.12
 
       - name: Run merge/dedup
         if: steps.csv.outputs.changed == 'true'
-        run: uv run python data/data_merge/merge_dedup_all3cols.py
+        run: uv run --frozen --python 3.12 data/data_merge/merge_dedup_all3cols.py
+
+      - name: Commit and push results
+        if: steps.csv.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git remote set-url origin "https://x-access-token:${{ steps.app-token.outputs.token }}@github.com/${{ github.repository }}.git"
+
+          if [ ! -f data/merged_dedup_all3cols.xlsx ]; then
+            echo "Output file not found, skipping commit."
+            exit 0
+          fi
+
+          git add data/merged_dedup_all3cols.xlsx
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "chore: update merged dataset"
+          git push origin HEAD:${{ github.ref_name }}
