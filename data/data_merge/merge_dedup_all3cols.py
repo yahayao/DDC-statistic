@@ -1,7 +1,8 @@
 import pandas as pd
 import os
 import re
-from langdetect import detect, LangDetectException
+# from langdetect import detect, LangDetectException  # 已注释，改用 fasttext
+import fasttext
 from dataclean import clean_text  # 复用已有的清洗逻辑
 
 # 所有待合并的文件及其列映射
@@ -161,20 +162,37 @@ def main():
     merged = merged[merged['description'].astype(str).str.split().str.len() >= 15].reset_index(drop=True)
     print(f"过滤前: {before_filter} 条 -> 过滤后: {len(merged)} 条，去除 {before_filter - len(merged)} 条")
 
-    # 这段是“非英语过滤”逻辑：通过 langdetect 检测 description 语言，
+    # 这段是“非英语过滤”逻辑：通过 fasttext 检测 description 语言，
     # 只保留英语（en）记录。当前默认不开启，避免误删数据。
     if ENABLE_ENGLISH_ONLY_FILTER:
-        print("\n=== 第二步（补3）：过滤非英语行（用 langdetect 检测 description 语言）===")
+        print("\n=== 第二步（补3）：过滤非英语行（用 fasttext 检测 description 语言）===")
+
+        # fasttext 预训练语言识别模型（需先下载 lid.176.ftz）
+        model_path = os.path.join(BASE_DIR, 'lid.176.ftz')
+        if not os.path.exists(model_path):
+            raise FileNotFoundError(
+                f"fasttext 语言模型未找到: {model_path}\n"
+                "请从 https://fasttext.cc/docs/en/language-identification.html 下载 lid.176.ftz"
+            )
+        ft_model = fasttext.load_model(model_path)
 
         def is_english(text):
-            try:
-                return detect(str(text)) == 'en'
-            except LangDetectException:
+            text = str(text).strip()
+            if not text:
                 return False
+            # fasttext 返回 (('__label__en',), array([0.99...]))
+            label, conf = ft_model.predict(text.replace('\n', ' '), k=1)
+            return label[0] == '__label__en'
 
         before_lang = len(merged)
         merged = merged[merged['description'].apply(is_english)].reset_index(drop=True)
         print(f"过滤前: {before_lang} 条 -> 过滤后: {len(merged)} 条，去除 {before_lang - len(merged)} 条")
+        # # 旧版 langdetect 实现（已注释）：
+        # def is_english(text):
+        #     try:
+        #         return detect(str(text)) == 'en'
+        #     except LangDetectException:
+        #         return False
     else:
         print("\n=== 第二步（补3）：非英语过滤已关闭（按配置跳过）===")
 
