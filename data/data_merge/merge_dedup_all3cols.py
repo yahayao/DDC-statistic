@@ -73,7 +73,7 @@ BOOK_DESC_PATTERN = re.compile(r'^book_descriptions_all(\d*)\.csv$', re.IGNORECA
 # 是否启用“仅保留英语描述”过滤。
 # 这段逻辑用于剔除德语/法语等非英语摘要，适合只做英文数据集时开启。
 # 目前按你的要求先不用，默认关闭；如需启用改为 True。
-ENABLE_ENGLISH_ONLY_FILTER = False
+ENABLE_ENGLISH_ONLY_FILTER = True
 
 
 def get_auto_book_description_files():
