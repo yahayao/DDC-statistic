@@ -8,7 +8,7 @@ on:
       - '**.csv'
 
 permissions:
-  pull-requests: read
+  contents: read
 
 jobs:
   check:
@@ -18,17 +18,26 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const prNumber = context.payload.pull_request.number;
             const owner = context.repo.owner;
             const repo = context.repo.repo;
+            const before = context.payload.before;
+            const after = context.payload.after || context.sha;
 
-            // 获取 PR 变更文件列表
-            const { data: files } = await github.rest.pulls.listFiles({
+            if (!before || /^0+$/.test(before)) {
+              core.info('无法获取有效的 base commit（可能是首次提交），跳过检查。');
+              return;
+            }
+
+            // 获取提交区间的变更文件列表
+            const { data: comparison } = await github.rest.repos.compareCommits({
               owner,
               repo,
-              pull_number: prNumber,
+              base: before,
+              head: after,
               per_page: 100
             });
+
+            const files = comparison.files || [];
 
             if (files.length === 0) {
               core.setFailed('没有检测到变更文件。');
