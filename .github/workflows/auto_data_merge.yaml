@@ -1,0 +1,57 @@
+name: auto_data_merge
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  merge_dedup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect CSV changes
+        id: csv
+        shell: bash
+        run: |
+          CSV_PATHSPEC=':(glob)data/data_merge/**/*.csv'
+
+          if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+            CHANGED="$(git ls-tree -r --name-only "${{ github.sha }}" -- "$CSV_PATHSPEC")"
+          else
+            CHANGED="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- "$CSV_PATHSPEC")"
+          fi
+
+          if [ -n "$CHANGED" ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "CSV changes detected:"
+            echo "$CHANGED"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No CSV changes detected."
+          fi
+
+      - name: Set up Python
+        if: steps.csv.outputs.changed == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install uv
+        if: steps.csv.outputs.changed == 'true'
+        run: python -m pip install --upgrade pip uv
+
+      - name: Sync dependencies
+        if: steps.csv.outputs.changed == 'true'
+        run: uv sync
+
+      - name: Run merge/dedup
+        if: steps.csv.outputs.changed == 'true'
+        run: uv run python data/data_merge/merge_dedup_all3cols.py
