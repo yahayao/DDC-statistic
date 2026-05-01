@@ -11,7 +11,7 @@ DDC that already having 100 samples will not show details of the distribution.
 
 **Vaild samples number in total: 234324**
 
-DDC number that not satisfy the requirement of 100 samples have: 760 
+DDC number that not satisfy the requirement of 100 samples have: 755 
 
 **DDC number that not satisfy the requirement of 100 samples:**
 | DDC | Sample Number |
