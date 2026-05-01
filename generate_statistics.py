@@ -1,7 +1,9 @@
 import pandas as pd
 import json
+import os
 
-INPUT_FILE = 'data/merged_dedup_all3cols.xlsx'  # 改成 merged_dedup_all3cols.xlsx 也可
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+INPUT_FILE = os.path.join(SCRIPT_DIR, 'data', 'merged_dedup_all3cols.xlsx')
 
 print(f"读取: {INPUT_FILE} ...")
 df = pd.read_excel(INPUT_FILE)
@@ -69,7 +71,7 @@ output = {
     }
 }
 
-output_path = 'statistics.json'
+output_path = os.path.join(SCRIPT_DIR, 'data', 'statistics.json')
 with open(output_path, 'w', encoding='utf-8') as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
 
