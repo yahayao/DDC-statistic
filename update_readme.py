@@ -66,7 +66,7 @@ def _build_underfilled_table(underfilled: list[dict[str, Any]]) -> str:
 def build_statistics_block(stats: dict[str, Any]) -> str:
     abstract_stats = stats.get("abstract_stats", {})
     ddc_under_100 = stats.get("ddc_under_100", {})
-    ddc_under_100_count = stats.get("ddc_under_100_count", 760)
+    ddc_under_100_count = ddc_under_100.get("ddc_under_100_count", 0)
 
     valid_sample_total = _safe_int(
         stats.get(
