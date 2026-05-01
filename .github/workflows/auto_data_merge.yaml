@@ -99,5 +99,5 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: update merged dataset"
+          git commit -m "chore: update merged dataset [skip ci]"
           git push origin HEAD:${{ github.ref_name }}

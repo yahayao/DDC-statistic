@@ -77,5 +77,5 @@ jobs:
           fi
 
           git add README.md
-          git commit -m "chore: update DDC statistics report"
+          git commit -m "chore: update DDC statistics report [skip ci]"
           git push origin HEAD:${{ github.ref_name }}
