@@ -118,6 +118,22 @@ def load_and_normalize(file_cfg):
     if rename_map:
         df = df.rename(columns=rename_map)
 
+    # 自动兼容常见列名差异（尤其是 book_descriptions_all*.csv）
+    alias_map = {
+        'mds_code': 'DDC',
+        'ddc': 'DDC',
+        'title': 'Title',
+        'abstract': 'description',
+        'desc': 'description',
+    }
+    auto_rename = {}
+    for col in df.columns:
+        normalized = str(col).strip().lower()
+        if normalized in alias_map and alias_map[normalized] not in df.columns:
+            auto_rename[col] = alias_map[normalized]
+    if auto_rename:
+        df = df.rename(columns=auto_rename)
+
     for col in TARGET_COLS:
         if col not in df.columns:
             df[col] = ''
