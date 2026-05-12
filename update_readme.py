@@ -68,8 +68,14 @@ def _normalize_grouped_items(items: Any) -> list[dict[str, Any]]:
         if not ddc_range:
             continue
 
-        total_records = _safe_int(item.get("total_records", item.get("count", 0)), 0)
-        normalized.append({"ddc_range": ddc_range, "total_records": total_records})
+        under_check_number_count = _safe_int(
+            item.get("under_check_number_count", item.get("total_records", item.get("count", 0))),
+            0,
+        )
+        normalized.append({
+            "ddc_range": ddc_range,
+            "under_check_number_count": under_check_number_count,
+        })
 
     return normalized
 
@@ -86,13 +92,13 @@ def _build_underfilled_table(underfilled: list[dict[str, Any]]) -> str:
     return "\n".join(lines)
 
 
-def _build_grouped_table(groups: list[dict[str, Any]]) -> str:
-    lines = ["| DDC Range | Total Records |", "| --- | --- |"]
+def _build_grouped_table(groups: list[dict[str, Any]], check_number: int) -> str:
+    lines = [f"| DDC Range | DDC < {check_number} Count |", "| --- | --- |"]
     if groups:
         for item in groups:
             ddc_range = str(item.get("ddc_range", ""))
-            total_records = _safe_int(item.get("total_records", 0), 0)
-            lines.append(f"| {ddc_range} | {total_records} |")
+            under_check_number_count = _safe_int(item.get("under_check_number_count", 0), 0)
+            lines.append(f"| {ddc_range} | {under_check_number_count} |")
     else:
         lines.append("| None | 0 |")
     return "\n".join(lines)
@@ -131,6 +137,8 @@ def build_statistics_block(stats: dict[str, Any]) -> str:
         )
     )
 
+    check_number = _safe_int(stats.get("check_number", 100), 100)
+
     underfilled_raw = stats.get("underfilled_ddc")
     if underfilled_raw is None and isinstance(ddc_under_100, dict):
         underfilled_raw = ddc_under_100.get("details", [])
@@ -141,17 +149,17 @@ def build_statistics_block(stats: dict[str, Any]) -> str:
 
     grouped_raw = stats.get("ddc_group_by_10", [])
     grouped_ddc = _normalize_grouped_items(grouped_raw)
-    grouped_table = _build_grouped_table(grouped_ddc)
+    grouped_table = _build_grouped_table(grouped_ddc, check_number)
 
     return (
         "## Statistics\n\n"
         "### DDC data distribution\n\n"
-        "DDC that already having 100 samples will not show details of the distribution.\n\n"
+        f"DDC that already having {check_number} samples will not show details of the distribution.\n\n"
         f"**Vaild samples number in total: {valid_sample_total}**\n\n"
-        f"DDC number that not satisfy the requirement of 100 samples have: {ddc_under_100_count} \n\n"
-        "**DDC number that not satisfy the requirement of 100 samples:**\n"
+        f"DDC number that not satisfy the requirement of {check_number} samples have: {ddc_under_100_count} \n\n"
+        f"**DDC number that not satisfy the requirement of {check_number} samples:**\n"
         f"{table}\n\n"
-        "**DDC grouped by 10 (000-009 to 990-999):**\n"
+        f"**DDC grouped by 10 (count of DDC < {check_number}):**\n"
         f"{grouped_table}\n\n"
         "### DDC data quality\n\n"
         f"**Minimal length of description: {min_description_length}**\n\n"

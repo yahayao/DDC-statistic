@@ -9,7 +9,7 @@ CHECK_NUMBER = 10
 print(f"读取: {INPUT_FILE} ...")
 df = pd.read_excel(INPUT_FILE)
 
-# ── 1. DDC 统计（只看不足 100 条的分类）──────────────────────────────
+# ── 1. DDC 统计（只看不足 CHECK_NUMBER 条的分类）────────────────────
 ddc_counts = df.groupby('DDC').size().reset_index(name='count')
 under_100 = ddc_counts[ddc_counts['count'] < CHECK_NUMBER].copy()
 under_100['gap_to_100'] = CHECK_NUMBER - under_100['count']
@@ -54,7 +54,7 @@ missing_as_under_100 = [
     {
         'ddc': code,
         'current_count': 0,
-        'gap_to_100': 100
+        'gap_to_100': CHECK_NUMBER
     }
     for code in missing_ddc
 ]
@@ -76,17 +76,19 @@ ddc_int_counts = (
 ddc_group_by_10 = []
 for i in range(0, 1000, 10):
     codes = [str(j).zfill(3) for j in range(i, i + 10)]
+    under_check_number_count = int((ddc_int_counts.loc[codes] < CHECK_NUMBER).sum())
     ddc_group_by_10.append({
         'ddc_range': f"{codes[0]}-{codes[-1]}",
-        'total_records': int(ddc_int_counts.loc[codes].sum())
+        'under_check_number_count': under_check_number_count
     })
 
 output = {
+    'check_number': CHECK_NUMBER,
     'abstract_stats': abstract_stats,
     'ddc_under_100': {
         'total_ddc_classes': int(len(ddc_counts)),
-        'ddc_over_100_count': int((ddc_counts['count'] >= 100).sum()),
-        'ddc_over_100_total_records': int(ddc_counts[ddc_counts['count'] >= 100]['count'].sum()),
+        'ddc_over_100_count': int((ddc_counts['count'] >= CHECK_NUMBER).sum()),
+        'ddc_over_100_total_records': int(ddc_counts[ddc_counts['count'] >= CHECK_NUMBER]['count'].sum()),
         'ddc_under_100_count': int(len(ddc_under_100_details)),
         'details': ddc_under_100_details
     },
@@ -106,5 +108,5 @@ print(f"\n── DDC 统计 ──")
 print(f"  001-999 中完全缺失的分类: {len(missing_ddc)} 个")
 print(f"  缺失列表: {missing_ddc[:20]}{'...' if len(missing_ddc) > 20 else ''}")
 print(f"  总分类数: {output['ddc_under_100']['total_ddc_classes']}")
-print(f"  >= 100 条的分类: {output['ddc_under_100']['ddc_over_100_count']} 个，共 {output['ddc_under_100']['ddc_over_100_total_records']} 条记录")
+print(f"  >= {CHECK_NUMBER} 条的分类: {output['ddc_under_100']['ddc_over_100_count']} 个，共 {output['ddc_under_100']['ddc_over_100_total_records']} 条记录")
 print(f"  < 100 条的分类:  {output['ddc_under_100']['ddc_under_100_count']}")
