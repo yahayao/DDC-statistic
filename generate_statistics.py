@@ -39,6 +39,9 @@ def pad_ddc(val):
         return integer.zfill(3) + '.' + decimal
     return val.zfill(3)
 
+def ddc_int_code(val):
+    return pad_ddc(val).split('.', 1)[0]
+
 all_ddc = {str(i).zfill(3) for i in range(1, 1000)}
 existing_ddc = set(ddc_counts['DDC'].apply(pad_ddc))
 # 只取纯整数三位码做对比（忽略带小数点的细分码）
@@ -57,8 +60,25 @@ missing_as_under_100 = [
 
 ddc_under_100_details = sorted(
     ddc_result + missing_as_under_100,
-    key=lambda item: pad_ddc(item['ddc'])
+    key=lambda item: (item['current_count'], pad_ddc(item['ddc']))
 )
+
+# 每 10 个 DDC 一组的记录数统计（000-009, 010-019, ..., 990-999）
+all_int_ddc = [str(i).zfill(3) for i in range(0, 1000)]
+ddc_int_counts = (
+    df['DDC']
+    .apply(ddc_int_code)
+    .value_counts()
+    .reindex(all_int_ddc, fill_value=0)
+)
+
+ddc_group_by_10 = []
+for i in range(0, 1000, 10):
+    codes = [str(j).zfill(3) for j in range(i, i + 10)]
+    ddc_group_by_10.append({
+        'ddc_range': f"{codes[0]}-{codes[-1]}",
+        'total_records': int(ddc_int_counts.loc[codes].sum())
+    })
 
 output = {
     'abstract_stats': abstract_stats,
@@ -68,7 +88,8 @@ output = {
         'ddc_over_100_total_records': int(ddc_counts[ddc_counts['count'] >= 100]['count'].sum()),
         'ddc_under_100_count': int(len(ddc_under_100_details)),
         'details': ddc_under_100_details
-    }
+    },
+    'ddc_group_by_10': ddc_group_by_10
 }
 
 output_path = os.path.join(SCRIPT_DIR, 'data', 'statistics.json')
